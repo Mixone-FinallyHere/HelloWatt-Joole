@@ -2,28 +2,32 @@
 
 Vous cherchez un job/stage? Découvrez [nos offres d'emplois](https://hello-watt.welcomekit.co/).
 
-## Requirements
+## Mise en place
 
+Faite un fork de ce projet sur votre compte Github, c'est sur ce fork que vous ferez vos modifications.
+
+Requirements:
 - Python 3.6
 - Django 1.11 (Doc: https://docs.djangoproject.com/fr/1.11/)
 
 ## Votre mission
 
-Ce projet posséde déjà une base de donnée contenant les informations de consommation d'électricité de 3 clients pour les années 2016 et 2017.
+Ce projet possède déjà une base de donnée contenant les informations de consommation d'électricité de 3 clients pour les années 2016 et 2017.
 Votre mission est de mettre en forme ces données sur une même page.
 
 Sur cette page votre objectif est d'afficher:
 
 - Les dépenses annuelles
-- La courbe de consommation de l'année 2017 comparé à celle de 2016
-- D'identifier si le client à un chauffage électrique ou non (hint: en hiver la consommation électrique est bien plus importante en cas de chauffage électrique)
+- La courbe de consommation de l'année 2017 comparée à celle de 2016
+- D'identifier si le client a un chauffage électrique ou non (hint: en hiver la consommation électrique est bien plus importante en cas de chauffage électrique)
 - De détécter un dysfonctionnement: cela se traduit généralement par un changement brusque d'une année à l'autre
 
 Les fichiers que vous avez à modifier sont:
-joole/dashboard/templates/dashboard/dashboard.html
+joole/dashboard/templates/dashboard/results.html
 joole/dashboard/views.py
 
 Libre à vous de modifier d'autres fichiers si vous considerez que c'est nécessaire.
+Si besoin, vous avez accès aux données dans la base depuis http://localhost:8000/admin/ avec le login admin (mdp: admin)
 
 ## Librairies à votre disposition
 
