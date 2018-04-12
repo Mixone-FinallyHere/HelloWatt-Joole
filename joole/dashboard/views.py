@@ -23,7 +23,9 @@ def results(request, client_id):
     is_elec_heating = True
     dysfunction_detected = False
 
-    # YOUR CODE GOES HERE
+    ###################################
+    # ----> YOUR CODE GOES HERE <---- #
+    ###################################
 
     context = {
         "conso_euro": conso_euro,

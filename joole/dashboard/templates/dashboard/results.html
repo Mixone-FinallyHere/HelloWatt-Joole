@@ -1,7 +1,9 @@
 {% extends 'dashboard/results_base.html' %}
 
-{% block style %}
+{% load static %}
 
+{% block style %}
+    <link rel="stylesheet" href="{% static 'dashboard/css/results.css' %}" media="all"/>
 {% endblock %}
 
 {% block content %}
@@ -11,5 +13,10 @@
     </div>
 </div>
 
-YOUR CODE HERE
+ -----> YOUR CODE HERE <-----
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'dashboard/js/results.js' %}"></script>
 {% endblock %}
