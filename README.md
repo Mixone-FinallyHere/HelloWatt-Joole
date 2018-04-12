@@ -4,7 +4,7 @@ Vous cherchez un job/stage? Découvrez [nos offres d'emplois](https://hello-watt
 
 ## Mise en place
 
-Faite un fork de ce projet sur votre compte Github, c'est sur ce fork que vous ferez vos modifications.
+Faites un fork de ce projet sur votre compte Github, c'est sur ce fork que vous ferez vos modifications.
 
 Requirements:
 - Python 3.6
