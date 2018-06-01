@@ -10,7 +10,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Joole</title>
-
     <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <link href="/static/dist/css/timeline.css" rel="stylesheet">
@@ -25,18 +24,23 @@
             <img src="/static/dist/img/logo-medium.png" >
         </div>
         <div class="row">
-        <div class="col-xs-8 col-xs-offset-2">
-        <form action="" method="post">
-            {% csrf_token %}
-            <div class="form-group input-group form-group-lg">
-                 <input id="id_client" maxlength="20" name="client" type="text" class="form-control" id="id_client" required placeholder="Entrez votre numéro de client">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary btn-lg" type="submit"><i class="fa fa-bolt"></i></button>
-                    </span>
+            <div class="col-xs-8 col-xs-offset-2">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group input-group form-group-lg">
+                         <input id="id_client" maxlength="20" name="client" type="text" class="form-control" id="id_client" required placeholder="Entrez votre numéro de client">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-lg" type="submit"><i class="fa fa-bolt"></i></button>
+                            </span>
+                    </div>
+                </form>        
             </div>
-        </form>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2" id="errorMessage">
+                <h4 style="color: red;">{{ error }}</h4>            
+            </div>
+        </div>
     </div>
 </body>
 </html>
