@@ -8,12 +8,29 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12 text-center">
         <h1 class="page-header">Mon tableau de bord énergie</h1>
+        <div class="row">
+            <div class="col-sm-6 text-center">
+                <h3> Bienvenue dans votre tableau de bord</h3>
+                <h5>Ici vous pouvez consulter vos <a href="#expensesDiv">dépenses</a> et votre <a href="#consumptionDiv">consommation</a>.</h5>
+                <h4> Informations : </h4>
+                <p> <span class="label label-small label-primary">Chauffage</span> Notre équipe a constaté qu'il est  {{ HEATING }} que vous soyez en train de bénéficier de chauffage électrique.</p>
+                <p> <span {% if dysfunction_detected == 2 %} class="label label-small label-danger"> {% elif dysfunction_detected == 1 %} class="label label-small label-warning"> {% else %} class="label label-small label-success"> {% endif %}Dysfonctions</span> {{ DYSFUNCTION }}</p>
+            </div>
+            <div class="col-sm-6 text-center">
+                <h3>Parametres</h3>         
+                <div class="btn-group btn-group-sm">
+                    <p> Taille des graphiques : <p>
+                  <button onclick="resizeCharts(6)" class="btn btn-default" autofocus>Petit</button>
+                  <button onclick="resizeCharts(12)" class="btn btn-default">Grand</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-6">
+    <div id="expensesDiv" class="col-sm-6 text-center">
         <h2>Mes dépenses</h2>
         <ul id="expensesTabs" class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#Expenses2017tab">2017</a></li>
@@ -22,21 +39,58 @@
         </ul>
         <div class="tab-content">
           <div id="Expenses2017tab" class="tab-pane fade in active">
-            <h4>Dépenses 2017</h4>
-            <div id="expenses2017" style="height: 250px;"></div>
+          </br>
+            <div class="graphHolder text-center">
+                <h3> <span class="label label-primary">Dépenses 2017</span></h3>
+                <div id="expenses2017" style="height: 500px;"></div>
+            </div>
           </div>
           <div id="Expenses2016tab" class="tab-pane fade">
-            <h4>Dépenses 2016</h4>
-            <div id="expenses2016" style="height: 250px;"></div>
+            </br>
+            <div class="graphHolder text-center">
+                <h3> <span class="label label-primary">Dépenses 2016</span></h3>
+                <div id="expenses2016" style="height: 500px;"></div>
+            </div>
           </div>
           <div id="ExpensesTottab" class="tab-pane fade">
-            <h4>Aperçu des dépenses 2016</h4>
-            <div id="expenses" style="height: 250px;"></div>
+            </br>
+            <div class="graphHolder text-center">
+                <h3> <span class="label label-primary">Aperçu des dépenses totales </span></h3>
+                <div id="expenses" style="height: 500px;"></div>
+            </div>
           </div>
         </div>        
     </div>
-    <div class="col-sm-6">
+    <div id="consumptionDiv" class="col-sm-6 text-center">
         <h2>Ma consommation</h2>
+        <ul id="consumptionTabs" class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#Consumption2017tab">2017</a></li>
+          <li><a data-toggle="tab" href="#Consumption2016tab">2016</a></li>
+          <li><a data-toggle="tab" href="#ConsumptionTottab">Aperçu</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="Consumption2017tab" class="tab-pane fade in active">
+          </br>
+            <div class="graphHolder text-center">
+                <h3> <span class="label label-primary">Consommation 2017</span></h3>
+                <div id="consumption2017" style="height: 500px;"></div>
+            </div>
+          </div>
+          <div id="Consumption2016tab" class="tab-pane fade">
+            </br>
+            <div class="graphHolder text-center">
+                <h3> <span class="label label-primary">Consommation 2016</span></h3>
+                <div id="consumption2016" style="height: 500px;"></div>
+            </div>
+          </div>
+          <div id="ConsumptionTottab" class="tab-pane fade">
+            </br>
+            <div class="graphHolder text-center">
+                <h3> <span class="label label-primary">Aperçu de comparaison consommation </span></h3>
+                <div id="consumption" style="height: 500px;"></div>
+            </div>
+          </div>
+        </div> 
     </div>
 </div>
 
@@ -45,6 +99,8 @@
 
 {% block script %}
     <script>
+        // Expenses variables
+        
         var yearExpensesData = [ 
                                 {year: '2016', expenses: {{ annual_costs.0 }}},
                                 {year: '2017', expenses: {{ annual_costs.1 }}}
@@ -76,6 +132,51 @@
                                 {month: 'Octobre', expenses: {{ conso_euro.1.9 }}},
                                 {month: 'Novembre', expenses: {{ conso_euro.1.10 }}},
                                 {month: 'Decembre', expenses: {{ conso_euro.1.11 }}}
+                                ];
+        
+        // Consumption variables
+        
+        var yearConsumptionData = [
+                                {month: 'Janvier', conso16: {{ conso_watt.0.0 }}, conso17: {{ conso_watt.1.0 }}},
+                                {month: 'Fevrier', conso16: {{ conso_watt.0.1 }}, conso17: {{ conso_watt.1.1 }}},
+                                {month: 'Mai', conso16: {{ conso_watt.0.2 }}, conso17: {{ conso_watt.1.2 }}},
+                                {month: 'Avril', conso16: {{ conso_watt.0.3 }}, conso17: {{ conso_watt.1.3 }}},
+                                {month: 'Mars', conso16: {{ conso_watt.0.4 }}, conso17: {{ conso_watt.1.4 }}},
+                                {month: 'Juin', conso16: {{ conso_watt.0.5 }}, conso17: {{ conso_watt.1.5 }}},
+                                {month: 'Juillet', conso16: {{ conso_watt.0.6 }}, conso17: {{ conso_watt.1.6 }}},
+                                {month: 'Aout', conso16: {{ conso_watt.0.7 }}, conso17: {{ conso_watt.1.7 }}},
+                                {month: 'Septembre', conso16: {{ conso_watt.0.8 }}, conso17: {{ conso_watt.1.8 }}},
+                                {month: 'Octobre', conso16: {{ conso_watt.0.9 }}, conso17: {{ conso_watt.1.9 }}},
+                                {month: 'Novembre', conso16: {{ conso_watt.0.10 }}, conso17: {{ conso_watt.1.10 }}},
+                                {month: 'Decembre', conso16: {{ conso_watt.0.11 }}, conso17: {{ conso_watt.1.11 }}}
+                                ];
+        var monthConsumptionData2016 = [
+                                {month: 'Janvier', conso: {{ conso_watt.0.0 }}},
+                                {month: 'Fevrier', conso: {{ conso_watt.0.1 }}},
+                                {month: 'Mai', conso: {{ conso_watt.0.2 }}},
+                                {month: 'Avril', conso: {{ conso_watt.0.3 }}},
+                                {month: 'Mars', conso: {{ conso_watt.0.4 }}},
+                                {month: 'Juin', conso: {{ conso_watt.0.5 }}},
+                                {month: 'Juillet', conso: {{ conso_watt.0.6 }}},
+                                {month: 'Aout', conso: {{ conso_watt.0.7 }}},
+                                {month: 'Septembre', conso: {{ conso_watt.0.8 }}},
+                                {month: 'Octobre', conso: {{ conso_watt.0.9 }}},
+                                {month: 'Novembre', conso: {{ conso_watt.0.10 }}},
+                                {month: 'Decembre', conso: {{ conso_watt.0.11 }}}
+                                ];
+        var monthConsumptionData2017 = [
+                                {month: 'Janvier', conso: {{ conso_watt.1.0 }}},
+                                {month: 'Fevrier', conso: {{ conso_watt.1.1 }}},
+                                {month: 'Mai', conso: {{ conso_watt.1.2 }}},
+                                {month: 'Avril', conso: {{ conso_watt.1.3 }}},
+                                {month: 'Mars', conso: {{ conso_watt.1.4 }}},
+                                {month: 'Juin', conso: {{ conso_watt.1.5 }}},
+                                {month: 'Juillet', conso: {{ conso_watt.1.6 }}},
+                                {month: 'Aout', conso: {{ conso_watt.1.7 }}},
+                                {month: 'Septembre', conso: {{ conso_watt.1.8 }}},
+                                {month: 'Octobre', conso: {{ conso_watt.1.9 }}},
+                                {month: 'Novembre', conso: {{ conso_watt.1.10 }}},
+                                {month: 'Decembre', conso: {{ conso_watt.1.11 }}}
                                 ];
     </script>
     <script src="{% static 'dashboard/js/results.js' %}"></script>

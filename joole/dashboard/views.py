@@ -15,11 +15,11 @@ HEATING_THRESHOLD = 4  # Representing 25%
                        # is at least 25% higher than the wattage average of the rest of the year.
                        # 25% chosen since winter does involve a general wattage increase due to
                        # things like less sunlight, or more time spent at home because its cold.
-HEATING_MSGS = ["Unlikely", "Likely", "Highly likely"]
+HEATING_MSGS = ["peu probable", "probable", "trés probable"]
 DYSFUNCTION_THRESHOLD = 10  # Representing 10%
                             #  We will assume wattage should more or less be the same year to year
                             # hence a 10% increase will be noted as an anomaly.
-DYSFUNCTION_MSGS =  ["None", "Possible", "Detected"]    # Possible dysfunction check messages.
+DYSFUNCTION_MSGS =  ["Notre équipe a constaté qu'il n'y a eu aucune dysfonction dans votre système.", "Notre équipe a constaté qu'il y a un possible dysfonctionnement dans votre système.", "Notre équipe a détecté une importante dysfonction dans votre système, veuillez contacter dès que possible votre fournisseur."]    # Possible dysfunction check messages.
                                                         # 0 = Nothing detected
                                                         # 1 = Wattage change above threshold for 1 year
                                                         # 2 = Wattage change above threshold for both years
@@ -58,8 +58,8 @@ def results(request, client_id):
         "annual_costs": annual_costs,
         "is_elec_heating": is_elec_heating,
         "dysfunction_detected": dysfunction_detected,
-        "HEATING": HEATING_MSGS,
-        "DYSFUNCTION": DYSFUNCTION_MSGS
+        "HEATING": HEATING_MSGS[is_elec_heating],
+        "DYSFUNCTION": DYSFUNCTION_MSGS[dysfunction_detected]
     }
     return render(request, 'dashboard/results.html', context)
 
@@ -128,3 +128,5 @@ def normalizeValue(possibleNegative):
         Unexpected but could happen. 
     """
     return ((possibleNegative)**2)**(1/2)
+    
+    
