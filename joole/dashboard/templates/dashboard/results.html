@@ -12,11 +12,71 @@
         <h1 class="page-header">Mon tableau de bord énergie</h1>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-6">
+        <h2>Mes dépenses</h2>
+        <ul id="expensesTabs" class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#Expenses2017tab">2017</a></li>
+          <li><a data-toggle="tab" href="#Expenses2016tab">2016</a></li>
+          <li><a data-toggle="tab" href="#ExpensesTottab">Aperçu</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="Expenses2017tab" class="tab-pane fade in active">
+            <h4>Dépenses 2017</h4>
+            <div id="expenses2017" style="height: 250px;"></div>
+          </div>
+          <div id="Expenses2016tab" class="tab-pane fade">
+            <h4>Dépenses 2016</h4>
+            <div id="expenses2016" style="height: 250px;"></div>
+          </div>
+          <div id="ExpensesTottab" class="tab-pane fade">
+            <h4>Aperçu des dépenses 2016</h4>
+            <div id="expenses" style="height: 250px;"></div>
+          </div>
+        </div>        
+    </div>
+    <div class="col-sm-6">
+        <h2>Ma consommation</h2>
+    </div>
+</div>
 
- -----> YOUR CODE HERE <-----
 
 {% endblock %}
 
 {% block script %}
+    <script>
+        var yearExpensesData = [ 
+                                {year: '2016', expenses: {{ annual_costs.0 }}},
+                                {year: '2017', expenses: {{ annual_costs.1 }}}
+                               ];                
+        var monthExpensesData2016 = [
+                                {month: 'Janvier', expenses: {{ conso_euro.0.0 }}},
+                                {month: 'Fevrier', expenses: {{ conso_euro.0.1 }}},
+                                {month: 'Mai', expenses: {{ conso_euro.0.2 }}},
+                                {month: 'Avril', expenses: {{ conso_euro.0.3 }}},
+                                {month: 'Mars', expenses: {{ conso_euro.0.4 }}},
+                                {month: 'Juin', expenses: {{ conso_euro.0.5 }}},
+                                {month: 'Juillet', expenses: {{ conso_euro.0.6 }}},
+                                {month: 'Aout', expenses: {{ conso_euro.0.7 }}},
+                                {month: 'Septembre', expenses: {{ conso_euro.0.8 }}},
+                                {month: 'Octobre', expenses: {{ conso_euro.0.9 }}},
+                                {month: 'Novembre', expenses: {{ conso_euro.0.10 }}},
+                                {month: 'Decembre', expenses: {{ conso_euro.0.11 }}}
+                                ];
+        var monthExpensesData2017 = [
+                                {month: 'Janvier', expenses: {{ conso_euro.1.0 }}},
+                                {month: 'Fevrier', expenses: {{ conso_euro.1.1 }}},
+                                {month: 'Mai', expenses: {{ conso_euro.1.2 }}},
+                                {month: 'Avril', expenses: {{ conso_euro.1.3 }}},
+                                {month: 'Mars', expenses: {{ conso_euro.1.4 }}},
+                                {month: 'Juin', expenses: {{ conso_euro.1.5 }}},
+                                {month: 'Juillet', expenses: {{ conso_euro.1.6 }}},
+                                {month: 'Aout', expenses: {{ conso_euro.1.7 }}},
+                                {month: 'Septembre', expenses: {{ conso_euro.1.8 }}},
+                                {month: 'Octobre', expenses: {{ conso_euro.1.9 }}},
+                                {month: 'Novembre', expenses: {{ conso_euro.1.10 }}},
+                                {month: 'Decembre', expenses: {{ conso_euro.1.11 }}}
+                                ];
+    </script>
     <script src="{% static 'dashboard/js/results.js' %}"></script>
 {% endblock %}
